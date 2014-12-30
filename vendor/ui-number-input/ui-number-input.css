@@ -1,4 +1,39 @@
-input::-webkit-inner-spin-button .ui-number-input.no-number-controls {
+input.ui-number-input.hide-spinners::-webkit-inner-spin-button,
+input.ui-number-input.hide-spinners::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+input[type=number].ui-number-input.hide-spinners  {
+    -moz-appearance:textfield;
+}
+
+.ui-number-input.status-error.visualize {
+	border-left-width: 5px;
+	border-left-color: red;
+}
+input.ui-number-input.status-error.visualize:focus {
+	border-color: rgb(125, 42, 7);
+	box-shadow: 1px 1px 10px 1px rgba(125, 42, 7, 0.25);
+	border-left-color: red;
+}
+.ui-number-input.status-warning.visualize {
+	border-left-width: 5px;
+	border-left-color: orange;
+}
+input.ui-number-input.status-warning.visualize:focus {
+	border-color: rgb(250, 210, 54);
+	box-shadow: 1px 1px 10px 1px rgba(250, 210, 54, 0.25);
+	border-left-color: orange;
+}
+.ui-number-input.status-success.visualize {
+	border-left-width: 5px;
+	border-left-color: green;
+}
+input.ui-number-input.status-success.visualize:focus {
+	border-color: rgb(50, 159, 2);
+	box-shadow: 1px 1px 10px 1px rgba(50, 159, 2, 0.25);
+	border-left-color: green;
+}
+
+

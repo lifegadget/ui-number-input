@@ -32,6 +32,16 @@ code {
 	line-spacing: 1rem;
 }
 
+note {
+	display: block;
+	color: #7C7C7C;
+	font-weight: 150;
+	border-left-style: solid;
+	border-left-color: lightgrey;
+	padding-left: 10px;
+	margin-bottom: 1rem;
+}
+
 .row {
 	margin-top: .5rem;
 	margin-bottom: .5rem;

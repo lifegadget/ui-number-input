@@ -5,22 +5,31 @@
 	Functional Hightlights:
 </h3>
 <ul>
-	<li>Overloads Ember's <code>TextInput</code> view with type set to <b>Number</b></li>
-	<li>Adds CSS to remove unwanted visual toggle controls (this can be turned off)</li>
-	<li>Adds Bootstraps 'form-control' class; disable with <code>bs="false"</code></li>
+	<li>Usability Improvements</li>
 	<ul>
-		<li>Sizing available as <code>size="large"</code>. Sizes are default, large, small.</li>
-		<li>Allows color styling such <code>color="primary"</code>. Colors are default, primary, warning, info.</li>
+		<li><code>type</code> set to <b>Number</b></li>
+		<li>Adds CSS to remove unwanted visual spinner controls</li>		
+		<li><code>pattern</code> attribute to <b>[0-9]*</b> so that mobile devices start with a numeric keyboard</li>				
+	</ul>
+	<li>Bootstrap Synergy</li>
+	<ul>
+		<li>Adds Bootstraps <code>form-control</code> class</code></li>
+		<li>Sizing available with <code>size</code> property. Sizes are default, large, small.</li>
 		<li>Note: Bootstrap itself must be installed to leverage these features</li>
+	</ul>
+	<li>Status and Correction</li>
+	<ul>
+		<li><strong>Status</strong> validation styling -- using both value and functional style configuration -- as well as event emitter</li>
+		<li><strong>Correction Rules</strong> functionality available to auto correct input (NOT COMPLETED YET)</li>		
 	</ul>
 </ul>
 	
 <h3>Tests</h3>
 <h4>Basics</h4>
 
-<div class="container">
+<div class="fluid-container">
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 col-sm-3 col-md-2">
 			{{ui-number-input bs=false}}
 		</div>
 		<div class="col-xs-8">
@@ -31,18 +40,29 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-number-input bs=false showSpinners=true}}
+		</div>
+		<div class="col-xs-8">
+			default use but include spinners<br/>
+			<code>
+\{{ui-number-input bs=false showSpinners=true}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2">
 			{{ui-number-input min=1 max=10 bs=false}}
 		</div>
 		<div class="col-xs-8">
 			min and max set [1,10]<br/>
 			<code>
-\{{ui-number-input min=1 max=10 bs=false bs=false4}}
+\{{ui-number-input min=1 max=10 bs=false bs=false}}
 			</code>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 col-sm-3 col-md-2">
 			{{ui-number-input min=0 max=100 step=5 bs=false}}
 		</div>
 		<div class="col-xs-8">
@@ -53,13 +73,13 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 col-sm-3 col-md-2">
 			{{ui-number-input placeholder="add number" bs=false}}
 		</div>
 		<div class="col-xs-8">
 			placeholder text<br/>
 			<code>
-\{{ui-number-input placeholder="add number" bs=false}}
+\{{ui-number-input placeholder="placeholder" bs=false}}
 			</code>
 		</div>
 	</div>
@@ -67,13 +87,12 @@
 	
 	
 <h4>
-	Bootstrap Styling:
+	Bootstrap Rules and Styling:
 </h4>
 
-<div class="container">
-	
+<div class="fluid-container">
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 col-sm-3 col-md-2">
 			{{ui-number-input}}
 		</div>
 		<div class="col-xs-8">
@@ -84,18 +103,18 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4">
-			{{ui-number-input status="error"}}
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-number-input placeholder="placeholder"}}
 		</div>
 		<div class="col-xs-8">
-			Bootstrap with status set to <b>error</b><br/>
+			Bootstrap default with placeholder<br/>
 			<code>
-\{{{ui-number-input status="error"}}
+\{{ui-number-input}}
 			</code>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 col-sm-3 col-md-2">
 			{{ui-number-input size="large"}}
 		</div>
 		<div class="col-xs-8">
@@ -106,13 +125,186 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-4 col-sm-3 col-md-2">
 			{{ui-number-input size="small"}}
 		</div>
 		<div class="col-xs-8">
 			Bootstrap small<br/>
 			<code>
 \{{ui-number-input size="small"}}
+			</code>
+		</div>
+	</div>
+</div>
+
+
+
+<h4>
+	Status Styling:
+</h4>
+<div class="fluid-container">
+	<div class="row">
+		<note class="col-xs-12 col-sm-10 col-md-8">
+			<p>
+				Because Bootstrap uses surrounding DOM elements to visually indicate the status of a given field this component instead provides a single attribute <code>status</code> which 
+				can be set to [default,success,warning, error] or a function that returns these values. Note that the status states are consistent with the visual choices available to Bootstrap 
+				but rather than translating into the <code>has-</code> prefixed CSS classes this component instead uses a <code>status-</code> to avoid unexpected collisions.
+			</p>
+			<p>
+				These classes -- by default -- provide no visual effects but can be turned on with <code>statusVisualize=true</code>. Alternatively you can just write your own CSS for these states.
+			</p>
+		</note>
+	</div>
+</div>
+
+<div class="fluid-container">
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-number-input status="error" statusVisualize=true}}
+		</div>
+		<div class="col-xs-8">
+			Bootstrap with status set to <b>error</b><br/>
+			<code>
+\{{ui-number-input status="error" statusVisualize=true}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-number-input status="warning" statusVisualize=true}}
+		</div>
+		<div class="col-xs-8">
+			Bootstrap with status set to <b>warning</b><br/>
+			<code>
+\{{ui-number-input status="warning" statusVisualize=true}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-number-input status="success" statusVisualize=true}}
+		</div>
+		<div class="col-xs-8">
+			Bootstrap with status set to <b>success</b><br/>
+			<code>
+\{{ui-number-input status="success" statusVisualize=true}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-number-input status="success" statusVisualize=true}}
+		</div>
+		<div class="col-xs-8">
+			Bound to status variable<br/>
+			<code>
+\{{ui-number-input status=staticStatus statusVisualize=true}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-number-input status=dynStatus statusVisualize=true}}
+		</div>
+		<div class="col-xs-8">
+			Bound to status function (negative is error, greater than 1 is success)<br/>
+			<code>
+\{{ui-number-input status=dynStatus statusVisualize=true}}
+			</code>
+		</div>
+	</div>
+</div>
+
+
+<h4>
+	Correction Rules:
+</h4>
+<h5 style="color:red"> NOT YET IMPLEMENTED </h5>
+<div class="fluid-container">
+	<div class="row">
+		<note class="col-xs-12 col-sm-10 col-md-8">
+			<p>
+				Corrections are a set of rules which allow for you to change the value either after focus is lost or in real-time. 
+				This can be useful as a way to more forcefully reinforce the values you want. Because this control is meant <i>only</i> for numeric values the only 
+				default <strong>correction</strong> is to disallow non-numeric input. This rule is called 'numericOnly' but the other rules that can be applied are:
+			</p>
+			<table class="table table-striped table-condensed">
+				<tr>
+					<th>Rule</th>
+					<th>Timing</th>
+					<th>Styling</th>
+					<th>Description</th>
+				</tr>
+				<tr>
+					<td>max</td>
+					<td>focus</td>
+					<td>emphasize</td>
+					<td>Enforces that the value is not greater than the <em>max</em> value stated</td>
+				</tr>
+				<tr>
+					<td>min</td>
+					<td>focus</td>
+					<td>emphasize</td>
+					<td>Enforces that the value is not less than the <em>min</em> value stated</td>
+				</tr>
+				<tr>
+					<td>stepUp</td>
+					<td>focus</td>
+					<td>emphasize</td>
+					<td>If the value isn't a multiple of the <em>step</em> property, moves UP to to the next multiple.</td>
+				</tr>
+				<tr>
+					<td>stepDown</td>
+					<td>focus</td>
+					<td>emphasize</td>
+					<td>If the value isn't a multiple of the <em>step</em> property, moves UP to to the next multiple.</td>
+				</tr>
+				<tr>
+					<td>numericOnly</td>
+					<td>keyUp</td>
+					<td>emphasize</td>
+					<td>Forces input to be numeric values only</td>
+				</tr>
+			</table>
+			<p>
+				Note: corrections executed on the  before status styling is applied (and therefore can be used to avoid an error status).
+			</p>
+		</note>
+	</div>
+</div>
+
+
+<div class="fluid-container">
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-number-input  addCorrectionRules="min,max" min=0 max=10}}
+		</div>
+		<div class="col-xs-8">
+			Adding min and max rules<br/>
+			<code>
+\{{ui-number-input addCorrectionRules="min,max" min=0 max=10}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-number-input  addCorrectionRules="min,max" min=0 max=10}}
+		</div>
+		<div class="col-xs-8">
+			Remove default numericOnly rule<br/>
+			<code>
+\{{ui-number-input removeCorrectionRules="numericOnly" min=0 max=10}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-number-input correctionRules=correctionRules min=0 max=10 step=2}}
+		</div>
+		<div class="col-xs-8">
+			Bind to rule list<br/>
+			<code>
+\{{ui-number-input correctionRules=correctionRules min=0 max=10 step=2}}
 			</code>
 		</div>
 	</div>
