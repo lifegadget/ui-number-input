@@ -1,3 +1,38 @@
 html, body {
-  margin: 20px;
+	font-family: Verdana, Geneva, sans-serif;
+	margin: 20px;
+}
+h1 {
+	margin-bottom: .25rem;
+	padding-bottom: 0px;
+	font-family: "Courier New", Courier, monospace;
+}
+h2 {
+	font-weight: 100;
+	font-size: 1.8rem;
+	font-style: italic;
+	color: darkgrey;
+	margin-top: .5rem;
+	margin-bottom: 3rem;
+}
+
+.demo-table td {
+	padding-right: 1rem;
+	padding-top: .5rem;
+	padding-bottom: .5rem;
+}
+
+.demo-table td i {
+	font-size: 16pt;
+}
+
+code {
+	font-family: "Courier New", Courier, monospace;
+	font-size: 9pt;
+	line-spacing: 1rem;
+}
+
+.row {
+	margin-top: .5rem;
+	margin-bottom: .5rem;
 }

@@ -1,3 +1,119 @@
-<h2 id="title">Welcome to Ember.js</h2>
+<h1 id="title">ui-number-input</h1>
+<h2>HTML <b>Number</b> input with Bootstrap and mobile friendly features</h2>
 
-{{outlet}}
+<h3>
+	Functional Hightlights:
+</h3>
+<ul>
+	<li>Overloads Ember's <code>TextInput</code> view with type set to <b>Number</b></li>
+	<li>Adds CSS to remove unwanted visual toggle controls (this can be turned off)</li>
+	<li>Adds Bootstraps 'form-control' class; disable with <code>bs="false"</code></li>
+	<ul>
+		<li>Sizing available as <code>size="large"</code>. Sizes are default, large, small.</li>
+		<li>Allows color styling such <code>color="primary"</code>. Colors are default, primary, warning, info.</li>
+		<li>Note: Bootstrap itself must be installed to leverage these features</li>
+	</ul>
+</ul>
+	
+<h3>Tests</h3>
+<h4>Basics</h4>
+
+<div class="container">
+	<div class="row">
+		<div class="col-xs-4">
+			{{ui-number-input bs=false}}
+		</div>
+		<div class="col-xs-8">
+			default use, nothing set<br/>
+			<code>
+\{{ui-number-input bs=false}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4">
+			{{ui-number-input min=1 max=10 bs=false}}
+		</div>
+		<div class="col-xs-8">
+			min and max set [1,10]<br/>
+			<code>
+\{{ui-number-input min=1 max=10 bs=false bs=false4}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4">
+			{{ui-number-input min=0 max=100 step=5 bs=false}}
+		</div>
+		<div class="col-xs-8">
+			min, max, step set [0,100,5]<br/>
+			<code>
+\{{ui-number-input min=1 max=10 step=5 bs=false}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4">
+			{{ui-number-input placeholder="add number" bs=false}}
+		</div>
+		<div class="col-xs-8">
+			placeholder text<br/>
+			<code>
+\{{ui-number-input placeholder="add number" bs=false}}
+			</code>
+		</div>
+	</div>
+</div>
+	
+	
+<h4>
+	Bootstrap Styling:
+</h4>
+
+<div class="container">
+	
+	<div class="row">
+		<div class="col-xs-4">
+			{{ui-number-input}}
+		</div>
+		<div class="col-xs-8">
+			Bootstrap default styling<br/>
+			<code>
+\{{ui-number-input}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4">
+			{{ui-number-input status="error"}}
+		</div>
+		<div class="col-xs-8">
+			Bootstrap with status set to <b>error</b><br/>
+			<code>
+\{{{ui-number-input status="error"}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4">
+			{{ui-number-input size="large"}}
+		</div>
+		<div class="col-xs-8">
+			Bootstrap large<br/>
+			<code>
+\{{ui-number-input size="large"}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4">
+			{{ui-number-input size="small"}}
+		</div>
+		<div class="col-xs-8">
+			Bootstrap small<br/>
+			<code>
+\{{ui-number-input size="small"}}
+			</code>
+		</div>
+	</div>
+</div>

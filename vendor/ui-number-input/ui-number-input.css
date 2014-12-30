@@ -1,0 +1,4 @@
+input::-webkit-inner-spin-button .ui-number-input.no-number-controls {
+    -webkit-appearance: none;
+    margin: 0;
+}

@@ -4,6 +4,10 @@
 var EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 var app = new EmberAddon();
+// Bootstrap just used for Dummy app, not dependency for widget
+app.import('bower_components/bootstrap/dist/css/bootstrap.css');
+app.import('bower_components/bootstrap/dist/js/bootstrap.js');
+
 
 // Use `app.import` to add additional libraries to the generated
 // output files.
