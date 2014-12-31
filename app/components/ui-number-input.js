@@ -4,8 +4,8 @@ var typeOf = Ember.typeOf;
 
 export default Ember.TextField.extend({
 	classNames: ['ui-number-input'],
-	classNameBindings: ['bsFormControl', 'sizeClass', 'statusClass', 'statusVisualize:visualize','showSpinners::hide-spinners'],
-	attributeBindings: ['type','minAttr','maxAttr','step'],
+	classNameBindings: ['bsFormControl', 'sizeClass', 'statusClass', 'statusVisualize:visualize','showSpinners::hide-spinners', 'visualStyleClass'],
+	attributeBindings: ['type','minAttr','maxAttr','step','visualStyleStyle:style'],
 	pattern: '[0-9]*',
 	showSpinners: false,
 	type: 'number',
@@ -80,6 +80,38 @@ export default Ember.TextField.extend({
 			});			
 		}
 	},
+	// LISTENERS
+	bindListeners: function() {
+		// Resize Listener
+		var localisedResize = 'resize.%@'.fmt(this.get('elementId'));
+		this.$(window).on(localisedResize, Ember.run.bind(this, this.trigger, ['resizeDidHappen']));	
+		this.set('componentWidth', this.$().parent().get(0).innerWidth || this.$().parent().get(0).offsetWidth); // initialize width	
+	}.on('didInsertElement'),
+	resizeListener: function() {
+		this.set('componentWidth', this.$().parent().get(0).innerWidth || this.$().parent().get(0).offsetWidth); // initialize width	
+	}.on('resizeDidHappen'),
+	componentWidth: null,
+	// VISUAL STYLE
+	visualStyle: null,
+	visualStyleClass: function() { // class adjustments
+		var style = this.get('visualStyle') || '';
+		if (style.indexOf('square') > -1) {
+			return style;
+		} else {
+			return null;
+		}
+	}.property('visualStyle'),
+	// direct style adjustments
+	visualStyleStyle: function() {
+		var style = this.get('visualStyle') || '';
+		if (style.indexOf('square') > -1) {
+			var height = Number(this.get('componentWidth')) - 30;
+			var fontSize = height / 35;
+			return 'height: %@px; font-size: %@em;'.fmt(height, fontSize);
+		} else {
+			return null;
+		}
+	}.property('visualStyle','componentWidth'),
 	// MESSAGE QUEUEING
 	messageQueue: [],
 	/**

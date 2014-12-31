@@ -36,6 +36,15 @@ input.ui-number-input.status-success.visualize:focus {
 	border-left-color: green;
 }
 
+.ember-text-field.square {
+	text-align: center;
+}
+.ember-text-field.inverted-square {
+	text-align: center;
+	color: white;
+	background: black;
+}
+
 /*!
 Animate.css - http://daneden.me/animate
 Licensed under the MIT license - http://opensource.org/licenses/MIT
