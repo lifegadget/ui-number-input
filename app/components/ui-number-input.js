@@ -4,7 +4,7 @@ var typeOf = Ember.typeOf;
 
 export default Ember.TextField.extend({
 	classNames: ['ui-number-input'],
-	classNameBindings: ['bsFormControl', 'sizeClass', 'statusClass', 'statusVisualize:visualize','showSpinners::hide-spinners'],
+	classNameBindings: ['bsFormControl', 'sizeClass', 'statusClass', 'statusVisualize:visualize','showSpinners::hide-spinners', 'animationClass:animated', 'animationClass'],
 	attributeBindings: ['type','minAttr','maxAttr','step'],
 	pattern: '[0-9]*',
 	showSpinners: false,
@@ -58,13 +58,31 @@ export default Ember.TextField.extend({
 		var activeCorrections = this.get('activeCorrections').filterBy('event',eventType);
 		var isAcceptable = true; // whitelist
 		activeCorrections.forEach(function(correction) {
-			// console.log('[%s] processing %s: %o', self.get('elementId'), eventType, correction);
-			isAcceptable = isAcceptable ? correction.rule(self, evt) : false;
+			console.log('[%s] processing %s: %o', self.get('elementId'), eventType, correction);
+			var thisRule = correction.rule(self, evt);
+			isAcceptable = isAcceptable ? thisRule : false;
+			if(!thisRule) {
+				self.emphasize(correction.emphasis);
+			}
 		});
 		if(!isAcceptable) {
 			evt.preventDefault();
 		}
 		return isAcceptable;
+	},
+	emphasize: function(animationType) {
+		// this.set('animationClass', animationType);
+		var self = this;
+		if (!isEmpty(animationType)) {
+			this.$().addClass('%@ animated'.fmt(animationType)).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+				console.log('finished animation');
+				self.$().removeClass('animated shake');
+			});			
+		}
+		// this.$().one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+		// 	console.log('finished animation');
+		// 	this.set('animationClass', null);
+		// });
 	},
 	// MESSAGE QUEUEING
 	messageQueue: [],
@@ -140,10 +158,10 @@ export default Ember.TextField.extend({
 		{
 			id:'min',
 			event: 'focusOut',
-			emphasis: 'danger',
+			emphasis: 'shake',
 			rule: function(context,event) {
-				var min = context.get('min');
-				var value = context.get('value');
+				var min = Number(context.get('min'));
+				var value = Number(context.get('value'));
 				if(min !== null && value < min) {
 					context.set('value',min);
 					context.addMessageQueue('Minimum value of %@ was surpassed, resetting to minimum.'.fmt(context.get('min')), {expiry: 2000, type: 'warning'});
@@ -156,10 +174,10 @@ export default Ember.TextField.extend({
 		{
 			id:'max',
 			event: 'focusOut',
-			emphasis: 'danger',
+			emphasis: 'shake',
 			rule: function(context,event) {
-				var max = context.get('max');
-				var value = context.get('value');
+				var max = Number(context.get('max'));
+				var value = Number(context.get('value'));
 				if(max !== null && value > max) {
 					context.set('value',max);
 					context.addMessageQueue('Maximum value of %@ was surpassed, resetting to maximum.'.fmt(context.get('max')), {expiry: 2000, type: 'warning'});
@@ -172,7 +190,7 @@ export default Ember.TextField.extend({
 		{
 			id:'stepUp',
 			event: 'focusOut',
-			emphasis: 'danger',
+			emphasis: 'bounce',
 			rule: function(context,event) {
 				var step = Number(context.get('step'));
 				var value = Number(context.get('value')) || 0;
@@ -197,7 +215,7 @@ export default Ember.TextField.extend({
 		{
 			id:'stepDown',
 			event: 'focusOut',
-			emphasis: 'danger',
+			emphasis: 'bounce',
 			rule: function(context,event) {
 				var step = Number(context.get('step'));
 				var value = Number(context.get('value')) || 0;
