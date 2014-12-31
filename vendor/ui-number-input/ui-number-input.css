@@ -38,11 +38,13 @@ input.ui-number-input.status-success.visualize:focus {
 
 .ember-text-field.square {
 	text-align: center;
+	padding: 0px;
 }
 .ember-text-field.inverted-square {
 	text-align: center;
 	color: white;
 	background: black;
+	padding: 0px;
 }
 
 /*!
