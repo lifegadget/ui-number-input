@@ -4,7 +4,7 @@ var typeOf = Ember.typeOf;
 
 export default Ember.TextField.extend({
 	classNames: ['ui-number-input'],
-	classNameBindings: ['bsFormControl', 'sizeClass', 'statusClass', 'statusVisualize:visualize','showSpinners::hide-spinners', 'animationClass:animated', 'animationClass'],
+	classNameBindings: ['bsFormControl', 'sizeClass', 'statusClass', 'statusVisualize:visualize','showSpinners::hide-spinners'],
 	attributeBindings: ['type','minAttr','maxAttr','step'],
 	pattern: '[0-9]*',
 	showSpinners: false,
@@ -76,13 +76,9 @@ export default Ember.TextField.extend({
 		if (!isEmpty(animationType)) {
 			this.$().addClass('%@ animated'.fmt(animationType)).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
 				console.log('finished animation');
-				self.$().removeClass('animated shake');
+				self.$().removeClass('%@ animated'.fmt(animationType));
 			});			
 		}
-		// this.$().one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
-		// 	console.log('finished animation');
-		// 	this.set('animationClass', null);
-		// });
 	},
 	// MESSAGE QUEUEING
 	messageQueue: [],
