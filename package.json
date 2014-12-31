@@ -1,6 +1,6 @@
 {
   "name": "ui-number-input",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "HTML Number input with Bootstrap and mobile friendly features",
   "directories": {
     "doc": "doc",

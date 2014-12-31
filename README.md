@@ -15,9 +15,9 @@ An Ember-CLI addon that provides a highly functional extension of Ember's TextIn
 1. Status Rules
 	- You can set statically, or bind a string or function() to the `status` property and the appropriate CSS will be applied
 	- Basic formatting can be turned on to visually indicate these styles, or you can style them yourself with all your CSS prowess
-	- FUTURE: will include a set of base rules and the ability to stack other rules in as a configuration option
 1. Auto Correction Rules
-	- FUTURE: will allow the include/exclusion of a set of base rules that correct user input 
+	- Default rule enforces that only numbers can be input into field
+	- Container can opt to add in auto-corrections for *min* and *max* value, as well as enforcing the `step` interval 
 
 ## Installation
 
