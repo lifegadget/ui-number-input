@@ -219,7 +219,7 @@
 <h4>
 	Correction Rules:
 </h4>
-<h5 style="color:red"> NOT YET IMPLEMENTED </h5>
+<h5 style="color:red"> VERY EARLY IMPLEMENTATION - NOT PROD READY </h5>
 <div class="fluid-container">
 	<div class="row">
 		<note class="col-xs-12 col-sm-10 col-md-8">
@@ -261,7 +261,7 @@
 				</tr>
 				<tr>
 					<td>numericOnly</td>
-					<td>keyUp</td>
+					<td>keyDown</td>
 					<td>none</td>
 					<td>Forces input to be numeric values only</td>
 				</tr>
@@ -277,34 +277,45 @@
 <div class="fluid-container">
 	<div class="row">
 		<div class="col-xs-4 col-sm-3 col-md-2">
-			{{ui-number-input  correctionRules="min,max" min=0 max=10}}
+			{{ui-number-input correctionRules="min" min=0 max=10}}
 		</div>
 		<div class="col-xs-8">
-			Adding min and max rules<br/>
+			Adding <strong>min</strong> rule on top of default <strong>numericOnly</strong><br/>
 			<code>
-\{{ui-number-input addCorrectionRules="min,max" min=0 max=10}}
+\{{ui-number-input correctionRules="min,max" min=0 max=10}}
 			</code>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-4 col-sm-3 col-md-2">
-			{{ui-number-input  addCorrectionRules="min,max" min=0 max=10}}
+			{{ui-number-input correctionRules=laxRules min=0 max=10 step=2}}
 		</div>
 		<div class="col-xs-8">
-			Remove default numericOnly rule<br/>
+			Bind to simple rule list ('min' only)<br/>
 			<code>
-\{{ui-number-input removeCorrectionRules="numericOnly" min=0 max=10}}
+\{{ui-number-input  correctionRules=laxRules min=0 max=10 step=2}}
 			</code>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-4 col-sm-3 col-md-2">
-			{{ui-number-input correctionRules=correctionRules min=0 max=10 step=2}}
+			{{ui-number-input correctionRules=strictRules min=0 max=20 step=2}}
 		</div>
 		<div class="col-xs-8">
-			Bind to rule list<br/>
+			Bind to more restrictive rule list ('min', 'max', and 'stepUp')<br/>
 			<code>
-\{{ui-number-input correctionRules=correctionRules min=0 max=10 step=2}}
+\{{ui-number-input  correctionRules=strictRules min=0 max=20 step=2}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-number-input correctionRules='stepDown' min=0 max=20 step=5}}
+		</div>
+		<div class="col-xs-8">
+			stepDown rule<br/>
+			<code>
+\{{ui-number-input correctionRules='stepDown' min=0 max=20 step=5}}
 			</code>
 		</div>
 	</div>

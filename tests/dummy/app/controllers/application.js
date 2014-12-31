@@ -14,5 +14,7 @@ export default Ember.Controller.extend({
 		} else {
 			return 'default';
 		}
-	}
+	},
+	laxRules: ['max'],
+	strictRules: ['min','max','stepUp']
 });
