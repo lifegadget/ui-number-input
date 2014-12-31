@@ -36,7 +36,9 @@
     "glob": "^4.0.5"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+	"ui",
+	"form-control"
   ],
   "ember-addon": {
     "configPath": "tests/dummy/config"
