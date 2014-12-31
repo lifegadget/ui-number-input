@@ -109,7 +109,7 @@
 		<div class="col-xs-8">
 			Bootstrap default with placeholder<br/>
 			<code>
-\{{ui-number-input}}
+\{{ui-number-input placeholder="placeholder"}}
 			</code>
 		</div>
 	</div>
@@ -204,12 +204,12 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-4 col-sm-3 col-md-2">
-			{{ui-number-input status=dynStatus statusVisualize=true}}
+			{{ui-number-input status=dynStatus statusVisualize=true value=0}}
 		</div>
 		<div class="col-xs-8">
 			Bound to status function (negative is error, greater than 1 is success)<br/>
 			<code>
-\{{ui-number-input status=dynStatus statusVisualize=true}}
+\{{ui-number-input status=dynStatus statusVisualize=true value=0}}
 			</code>
 		</div>
 	</div>
@@ -218,7 +218,6 @@
 <h4>
 	Correction Rules:
 </h4>
-<h5 style="color:red"> Emphasis Effects NOT Implemented Yet </h5>
 <div class="fluid-container">
 	<div class="row">
 		<note class="col-xs-12 col-sm-10 col-md-8">
@@ -245,6 +244,18 @@
 					<td>focusOut</td>
 					<td>shake</td>
 					<td>Enforces that the value is not less than the <em>min</em> value stated</td>
+				</tr>
+				<tr>
+					<td>stretchMax</td>
+					<td>focusOut</td>
+					<td>pulse</td>
+					<td>Adjusts max to value when it has surpassed the old max</td>
+				</tr>
+				<tr>
+					<td>stretchMin</td>
+					<td>focusOut</td>
+					<td>pulse</td>
+					<td>Adjusts min to value when it has surpassed the old min</td>
 				</tr>
 				<tr>
 					<td>stepUp</td>
@@ -281,18 +292,18 @@
 		<div class="col-xs-8">
 			Adding <strong>min</strong> rule on top of default <strong>numericOnly</strong><br/>
 			<code>
-\{{ui-number-input correctionRules="min,max" min=0 max=10}}
+\{{ui-number-input correctionRules="min" min=0 max=10}}
 			</code>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-4 col-sm-3 col-md-2">
-			{{ui-number-input correctionRules=laxRules min=0 max=10 step=2}}
+			{{ui-number-input correctionRules=laxRules min=0 max=10}}
 		</div>
 		<div class="col-xs-8">
 			Bind to simple rule list ('min' only)<br/>
 			<code>
-\{{ui-number-input  correctionRules=laxRules min=0 max=10 step=2}}
+\{{ui-number-input  correctionRules=laxRules min=0 max=10}}
 			</code>
 		</div>
 	</div>
@@ -312,9 +323,20 @@
 			{{ui-number-input correctionRules='stepDown' min=0 max=20 step=5}}
 		</div>
 		<div class="col-xs-8">
-			stepDown rule<br/>
+			stepDown rule only<br/>
 			<code>
 \{{ui-number-input correctionRules='stepDown' min=0 max=20 step=5}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-number-input correctionRules='stretchMax' max=20 step=5}}
+		</div>
+		<div class="col-xs-8">
+			stretchMax rule only<br/>
+			<code>
+\{{ui-number-input correctionRules='stretchMax' max=20 step=5}}
 			</code>
 		</div>
 	</div>

@@ -152,6 +152,23 @@ export default Ember.TextField.extend({
 			} 
 		},
 		{
+			// Redefine min when no lower-than-min value comes in
+			id:'stretchMin',
+			event: 'focusOut',
+			emphasis: 'pulse',
+			rule: function(context,event) {
+				var min = Number(context.get('min'));
+				var value = Number(context.get('value'));
+				if(min !== null && value < min) {
+					context.set('min',value);
+					context.addMessageQueue('Minimum was exceeded, new minimum set from %s to %s.'.fmt(min,value), {expiry: 2000, type: 'warning'});
+					return false;
+				} else {
+					return true;
+				}
+			} 
+		},		
+		{
 			id:'min',
 			event: 'focusOut',
 			emphasis: 'shake',
@@ -161,6 +178,23 @@ export default Ember.TextField.extend({
 				if(min !== null && value < min) {
 					context.set('value',min);
 					context.addMessageQueue('Minimum value of %@ was surpassed, resetting to minimum.'.fmt(context.get('min')), {expiry: 2000, type: 'warning'});
+					return false;
+				} else {
+					return true;
+				}
+			} 
+		},
+		{
+			// Redefine max when no higher-than-max value comes in
+			id:'stretchMax',
+			event: 'focusOut',
+			emphasis: 'pulse',
+			rule: function(context,event) {
+				var max = Number(context.get('max'));
+				var value = Number(context.get('value'));
+				if(max !== null && value > max) {
+					context.set('max',value);
+					context.addMessageQueue('Maximum was exceeded, new maximum set from %s to %s.'.fmt(max,value), {expiry: 2000, type: 'warning'});
 					return false;
 				} else {
 					return true;
