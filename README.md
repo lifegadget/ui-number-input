@@ -55,7 +55,7 @@ There are no external Bower dependencies, however, in order to provide reuse to 
 - `InputAnimationMixin`
 - `UiEventListenerMixin`
 
-All of these mixins are currently reside within this addon but will be moved to an external addon dependency in the next release called `ui-form-mixins`.
+All of these mixins are currently reside within this addon but will be moved to an external addon dependency in the next release called `ui-form-mixins` once we can figure out the namespacing snafu discussed here: [SO](http://stackoverflow.com/questions/27732800/ember-addon-namespace-not-resolving).
 
 
 ## Licensing

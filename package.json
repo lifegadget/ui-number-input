@@ -1,6 +1,6 @@
 {
   "name": "ui-number-input",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "HTML Number input with Bootstrap and mobile friendly features",
   "directories": {
     "doc": "doc",
@@ -18,7 +18,7 @@
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": "Ken Snyder",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.0.0",
@@ -32,14 +32,13 @@
     "ember-cli-qunit": "0.1.2",
     "ember-data": "1.0.0-beta.12",
     "ember-export-application-global": "^1.0.0",
-	"ui-mixin-helpers": "git+https://github.com/lifegadget/ui-mixin-helpers.git",
     "express": "^4.8.5",
     "glob": "^4.0.5"
   },
   "keywords": [
     "ember-addon",
-	"ui",
-	"form-control"
+    "ui",
+    "form-control"
   ],
   "ember-addon": {
     "configPath": "tests/dummy/config"
