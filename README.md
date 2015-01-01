@@ -22,9 +22,12 @@ An Ember-CLI addon that provides a highly functional extension of Ember's TextIn
 ## Installation
 
 * change directories to your project folder
-* type: `npm install ui-number-input --save-dev`
+* `ember install:addon ui-number-input`
 
 That's it, you're ready to use it.
+
+> Note: before version 0.1.5 of Ember CLI the recommended installation command was: `npm install ui-number-input --save-dev` which should still work for now 
+> (although in future builds we may utilise some of the initialisation features that the new syntax opens up)
 
 ## Usage ##
 
@@ -33,6 +36,27 @@ See the [Test Demo](http://development.ui-number-input.divshot.io/) for a fairly
 ## Repo Contribution
 
 We're open to your creative suggestions but please move past the "idea" stage and send us a PR so we can incorporate your ideas without killing ourselves. :)
+
+## Dependencies ##
+
+There are no external Bower dependencies, however, in order to provide reuse to other form components, the `ui-number-input` leverages a few mixins that also used by companion addons (`ui-text-input` as an example of a addon that uses the same addons). If just planning on using the component then you don't need to concern yourself with this but if you want to extend this or create a PR this is meant to serve as context:
+
+- `InputStatusMixin`
+	manages all the functionality around *status* rules and styling. This mixin has the following dependencies:
+	
+	- `classNameBindings` - expects to have 'statusClass' and 'statusVisualze' listed in the bindings array
+	- `status`, `statusIsDefault`, `statusVisualize` become reserved names
+- `InputCorrectionMixin`
+	Adds *auto-correction* rules functionality
+
+	- `defaultCorrectionRules` will be blank unless the implementing component sets this themselves (blank may be the desired state)
+	- `correctionRules` is exposed as a property so that rules can be added by containing view at run time
+
+- `InputAnimationMixin`
+- `UiEventListenerMixin`
+
+All of these mixins are currently reside within this addon but will be moved to an external addon dependency in the next release called `ui-form-mixins`.
+
 
 ## Licensing
 
