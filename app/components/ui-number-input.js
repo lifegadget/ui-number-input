@@ -8,7 +8,7 @@ import UiEventListenerMixin from '../mixins/ui-event-listener';
 
 export default Ember.TextField.extend(InputStatusMixin,InputCorrectionMixin,UiEventListenerMixin,{
 	classNames: ['ui-number-input'],
-	classNameBindings: ['bsFormControl', 'sizeClass', 'statusClass', 'statusVisualize:visualize','showSpinners::hide-spinners', 'visualStyleClass'],
+	classNameBindings: ['bsFormControl', 'sizeClass', 'statusClass', 'alignClass','statusVisualize:visualize','showSpinners::hide-spinners', 'visualStyleClass'],
 	attributeBindings: ['type','minAttr','maxAttr','step','visualStyleStyle:style'],
 	pattern: '[0-9]*',
 	showSpinners: false,
@@ -31,6 +31,11 @@ export default Ember.TextField.extend(InputStatusMixin,InputCorrectionMixin,UiEv
 	min: null,
 	max: null,
 	step: null,
+	align: 'left', // values are left/right/center
+	alignClass: function() {
+		var align = this.get('align');
+		return 'align-text-%@'.fmt(align);
+	}.property('align'),
 	// EVENT HANDLING
 	focusOut: function(evt) {
 		return this.processCorrections('focusOut',evt);

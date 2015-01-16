@@ -47,6 +47,16 @@ input.ui-number-input.status-success.visualize:focus {
 	padding: 0px;
 }
 
+.ui-number-input.align-text-left {
+	text-align: left;
+}
+.ui-number-input.align-text-center {
+	text-align: center;
+}
+.ui-number-input.align-text-right {
+	text-align: right;
+}
+
 /*!
 Animate.css - http://daneden.me/animate
 Licensed under the MIT license - http://opensource.org/licenses/MIT
