@@ -31,9 +31,12 @@ export default Ember.TextField.extend(InputStatusMixin,InputCorrectionMixin,UiEv
 	min: null,
 	max: null,
 	step: null,
-	align: 'left', // values are left/right/center
+	align: null, // values are left/right/center
 	alignClass: function() {
 		var align = this.get('align');
+		if(!align) {
+			align='left';
+		}
 		return 'align-text-%@'.fmt(align);
 	}.property('align'),
 	// EVENT HANDLING
@@ -50,7 +53,6 @@ export default Ember.TextField.extend(InputStatusMixin,InputCorrectionMixin,UiEv
 		var self = this;
 		if (!isEmpty(animationType)) {
 			this.$().addClass('%@ animated'.fmt(animationType)).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
-				console.log('finished animation');
 				self.$().removeClass('%@ animated'.fmt(animationType));
 			});			
 		}
@@ -60,6 +62,9 @@ export default Ember.TextField.extend(InputStatusMixin,InputCorrectionMixin,UiEv
 	visualStyleClass: function() { // class adjustments
 		var style = this.get('visualStyle') || '';
 		if (style.indexOf('square') > -1) {
+			if(!this.get('align')) {
+				this.set('align', 'center');
+			}
 			return style;
 		} else {
 			return null;

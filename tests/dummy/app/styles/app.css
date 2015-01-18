@@ -46,3 +46,14 @@ note {
 	margin-top: .5rem;
 	margin-bottom: .5rem;
 }
+
+.link {
+	cursor: pointer;
+	padding: 2px;
+	margin-bottom: 8px;
+	border-radius: 3px;
+	background-color: lightgrey;
+}
+.link.selected {
+	font-weight: 900;
+}

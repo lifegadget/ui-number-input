@@ -16,5 +16,20 @@ export default Ember.Controller.extend({
 		}
 	},
 	laxRules: ['min'],
-	strictRules: ['min','max','stepUp']
+	strictRules: ['min','max','stepUp'],
+	// ARRAY
+	myEmptyArray: [],
+	mySimpleArray: [1,2,3],
+	
+	showNumberComponent: false,
+	showNumberArrayComponent: false,
+	actions: {
+		pickComponent: function(item) {
+			if(item === 'ui-number-input') {
+				this.toggleProperty('showNumberComponent');
+			} else {
+				this.toggleProperty('showNumberArrayComponent');
+			}
+		}
+	}
 });

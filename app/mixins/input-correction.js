@@ -9,7 +9,7 @@ export default Ember.Mixin.create({
 		var _activeCorrections = this.get('_activeCorrections').filterBy('event',eventType);
 		var isAcceptable = true; // whitelist
 		_activeCorrections.forEach(function(correction) {
-			console.log('[%s] processing %s: %o', self.get('elementId'), eventType, correction);
+			// console.log('[%s] processing %s: %o', self.get('elementId'), eventType, correction);
 			var thisRule = correction.rule(self, evt);
 			isAcceptable = isAcceptable ? thisRule : false;
 			if(!thisRule) {
@@ -61,7 +61,7 @@ export default Ember.Mixin.create({
 				console.warn('Correction rule "%s" is not formatted correctly', correction);
 			}
 		});
-	}.on('didInsertElement'),
+	}.observes('correctionRules').on('didInsertElement'),
 	_correctionLibrary: [
 		{
 			id:'numericOnly',
