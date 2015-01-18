@@ -2,6 +2,13 @@ import Ember from 'ember';
 var typeOf = Ember.typeOf;
 var isEmpty = Ember.isEmpty;
 
+// Array Remove - By John Resig (MIT Licensed)
+Array.prototype.remove = function(from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from < 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};
+
 export default Ember.Mixin.create({
 	processCorrections: function(eventType, evt, options) {
 		options = options || {};
@@ -28,10 +35,17 @@ export default Ember.Mixin.create({
 	_addCorrectionRules: function() {
 		var self = this;
 		var adding = self.get('correctionRules') || [];
+		var defaultCorrectionRules = self.get('defaultCorrectionRules');
 		var _activeCorrections = self.get('_activeCorrections');
 		adding = typeOf(adding) === 'string' ? adding.split(',') : adding;
-		if(!isEmpty(this.get('defaultCorrectionRules'))) {
-			adding = adding.concat(this.get('defaultCorrectionRules'));
+		// since integerOnly is superset of numericOnly and clipboard functionality is tricky with both in place
+		// we will remove "numericOnly" if "intergerOnly" exists ... TODO: find a more graceful way of handling this
+		if(adding.contains('integerOnly')) {
+			defaultCorrectionRules.remove(defaultCorrectionRules.indexOf('numericOnly'));
+			self.set('defaultCorrectionRules',defaultCorrectionRules);
+		}
+		if(!isEmpty(defaultCorrectionRules)) {
+			adding = adding.concat(defaultCorrectionRules);
 		}
 		adding.forEach(function(correction) {
 			// correction is either an object which means it's really an external rule definition
@@ -74,6 +88,22 @@ export default Ember.Mixin.create({
 				var decimalPlace = context.get('_KEYBOARD.decimalPlace');
 				var keyCombos = context.get('_KEYBOARD.keyCombos');
 				if(numericKeys.concat(validControlCodes).concat(decimalPlace).contains(keyCode) || keyCombos(event)) {
+					if(keyCombos(event) && keyCode === 86) {
+						// Ensure clipboard content is number
+						var contentBefore = context.get('value');
+						context.$().on('paste',function(e) {
+						    e.preventDefault();
+						    var text = (e.originalEvent || e).clipboardData.getData('text/plain') || prompt('Paste something..');
+							if (Number(text) !== NaN) {
+								context.set('value',Number(text));
+							} else {
+								console.log('re-instating context: %s', contentBefore);
+								context.set('value',contentBefore);
+								context.addMessageQueue('Attempt to paste non-numeric content was blocked.', {expiry: 2000, type: 'info'});
+							}
+							context.$().off('paste');
+						});
+					}
 					return true;
 				} else {
 					context.addMessageQueue('Only numeric characters are allowed.', {expiry: 2000, type: 'warning'});
@@ -91,6 +121,28 @@ export default Ember.Mixin.create({
 				var numericKeys = context.get('_KEYBOARD.numericKeys');
 				var keyCombos = context.get('_KEYBOARD.keyCombos');
 				if(numericKeys.concat(validControlCodes).contains(keyCode) || keyCombos(event)) {
+					if(keyCombos(event) && keyCode === 86) {
+					// Ensure clipboard content is number
+						var contentBefore = context.get('value');
+						context.$().on('paste',function(e) {
+						    e.preventDefault();
+						    var text = (e.originalEvent || e).clipboardData.getData('text/plain') || prompt('Paste something..');
+							if (Number(text) !== NaN ) {
+								if (Number(text) % 1 === 0) {
+									context.set('value',Number(text));									
+								} else {
+									// strip off the non integer component
+									context.set('value',Math.floor(Number(text)));
+									context.addMessageQueue('Value pasted was numeric but not an integer. Only integer component kept.', {expiry: 2000, type: 'info'});
+								}
+								
+							} else {
+								context.set('value',contentBefore);
+								context.addMessageQueue('Attempt to paste non-numeric content was blocked.', {expiry: 2000, type: 'info'});
+							}
+							context.$().off('paste');
+						});
+					}
 					return true;
 				} else {
 					context.addMessageQueue('Only numeric characters are allowed.', {expiry: 2000, type: 'warning'});
@@ -229,9 +281,9 @@ export default Ember.Mixin.create({
 			options = options || {};
 			var isAcceptable = false;
 			var config = [
-				{ id: 'ctrlKey', value: options.ctrlKey || [65] }, // ctrl-A
+				{ id: 'ctrlKey', value: options.ctrlKey || [65,86] }, // ctrl-A, ctrl-v
 				{ id: 'shiftKey', value: options.shiftKey || [] },
-				{ id: 'metaKey', value: options.metaKey || [65,82] }, // 65: cmd/win-A, cmd/win-R
+				{ id: 'metaKey', value: options.metaKey || [65,82,86] }, // 65: cmd/win-A, cmd/win-R, cmd-v
 				{ id: 'altKey', value: options.altKey || [] },
 			];
 			config.forEach(function(item) {
