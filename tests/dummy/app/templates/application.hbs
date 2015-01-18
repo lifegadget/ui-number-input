@@ -419,7 +419,15 @@
 	<li>provides a wrapper around the base <code>ui-number-input</code> component which allows simple binding to an array of numbers</li>
 	<li>pass attributes like min, max, size, and align through to the individually or as a group</li>
 	<li>pass rules (or set of rules) to the items (but they can not be individually targeted at this point)</li>
-	<li>provides the array's average, sum, and standard-deviation as a one-way binding</li>
+	<li>provides several statistical outputs:</li>
+	<ul>
+		<li>samples - an array of non-null values sorted from lowest to highest</li>
+		<li>minValue, maxValue - the smallest and largest measurements in the sample</li>
+		<li>sum - the summation of all sampled measurements</li>
+		<li>mean - the average value in the sampled measurements</li>
+		<li>median - the median value in the sample set (in even sets the two median values will be averaged)</li>
+	</ul>
+		
 </ul>
 	
 <h3>Tests</h3>
@@ -548,12 +556,23 @@
 <div id="ui-number-array-input" class="fluid-container">
 	<div class="row">
 		<div class="col-xs-4 col-sm-3 col-md-2">
-			{{ui-number-array-input value=myEmptyArray elements=3 samples=samples average=average sum=sum min=0 max=100 correctionRules='min,max'}}
+			{{ui-number-array-input value=myEmptyArray elements=3 samples=samples mean=mean median=median minValue=minValue maxValue=maxValue sum=sum min=0 max=100 correctionRules='min,max'}}
 		</div>
 		<div class="col-xs-8">
-			Values: {{pretty-json myEmptyArray}}, samples: {{pretty-json samples}}, average: {{pretty-json average}}, sum: {{pretty-json sum}} <br/>
+			Values: {{pretty-json myEmptyArray}}, samples: {{pretty-json samples}}, mean: {{mean}}, median: {{median}}, sum: {{sum}}, minVal: {{minValue}}, maxVal: {{maxValue}} <br/>
 			<code>
 \{{ui-number-array-input value=myEmptyArray elements=3 samples=samples average=average sum=sum min=0 max=100 correctionRules='min,max'}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-number-array-input elements=4 samples=samples2 mean=mean2 median=median2 minValue=minValue2 maxValue=maxValue2 sum=sum2 min=0 max=100 correctionRules='min,max' size="small"}}
+		</div>
+		<div class="col-xs-8">
+			samples: {{pretty-json samples2}}, mean: {{mean2}}, median: {{median2}}, sum: {{sum2}}, minVal: {{minValue2}}, maxVal: {{maxValue2}} <br/>
+			<code>
+\{{ui-number-array-input elements=4 samples=samples2 mean=mean2 median=median2 minValue=minValue2 maxValue=maxValue2 sum=sum2 min=0 max=100 correctionRules='min,max' size="small"}}
 			</code>
 		</div>
 	</div>

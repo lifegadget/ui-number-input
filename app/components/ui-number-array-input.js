@@ -25,7 +25,8 @@ export default Ember.Component.extend({
 	arrayElements: Ember.A([]),
 	samples: [],
 	sum: null,
-	average: null,
+	mean: null,
+	median: null,
 	
 	// observers and event handlers
 	// ----------------------------
@@ -95,10 +96,25 @@ export default Ember.Component.extend({
 					return false;
 				}
 			});
+			samples.sort(function(a,b) {return a-b}); // put into order, lowest to highest
 			this.set('samples', samples);
 			this.set('sum', sum);
-			var average = samples.length === 0 ? null : sum / samples.length;
-			this.set('average', average);
+			var sampleSize = samples.length ? samples.length : 0;
+			this.set('sampleSize', sampleSize);
+			var median;
+			var midPoint = Math.floor(sampleSize / 2);
+			if (sampleSize % 2 === 0 && sampleSize !== 0) {
+				median = (samples[midPoint] + samples[midPoint - 1]) / 2;
+			} else if (sampleSize !== 0) {
+				median = samples[midPoint];
+			} else {
+				median = null;
+			}
+			this.set('median',median);
+			var mean = samples.length === 0 ? null : sum / samples.length;
+			this.set('mean', mean);
+			this.set('minValue', samples ? samples[0] : null);
+			this.set('maxValue', samples ? samples[samples.length -1] : null);
 		});
 	}.observes('arrayElements.@each.value'),
 	
