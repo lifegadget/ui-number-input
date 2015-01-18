@@ -338,6 +338,12 @@
 						<td>none</td>
 						<td>Forces input to be numeric values only</td>
 					</tr>
+					<tr>
+						<td>integerOnly</td>
+						<td>keyDown</td>
+						<td>none</td>
+						<td>Forces input to only accept integers by blocking the use of the decimal place marker. In essence a slightly more strict version of numericOnly.</td>
+					</tr>
 				</table>
 				<p>
 					Note: corrections executed on the  before status styling is applied (and therefore can be used to avoid an error status).
@@ -356,6 +362,17 @@
 				Adding <strong>min</strong> rule on top of default <strong>numericOnly</strong><br/>
 				<code>
 	\{{ui-number-input correctionRules="min" min=0 max=10}}
+				</code>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4 col-sm-3 col-md-2">
+				{{ui-number-input correctionRules="integerOnly"}}
+			</div>
+			<div class="col-xs-8">
+				Integers only <br/>
+				<code>
+	\{{ui-number-input correctionRules="integerOnly"}}
 				</code>
 			</div>
 		</div>

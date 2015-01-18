@@ -116,17 +116,5 @@ export default Ember.Component.extend({
 			this.set('minValue', samples ? samples[0] : null);
 			this.set('maxValue', samples ? samples[samples.length -1] : null);
 		});
-	}.observes('arrayElements.@each.value'),
-	
-	// // ACTIONS
-	// actions: {
-	// 	elementDidChange: function() {
-	// 		console.log("element did change");
-	// 		this.set('value', this.get('arrayElements').map(function(item,index){
-	// 			return item.value;
-	// 		}));
-	// 	}
-	// }
-	
-
+	}.observes('arrayElements.@each.value')
 });

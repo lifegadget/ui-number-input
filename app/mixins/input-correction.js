@@ -71,6 +71,24 @@ export default Ember.Mixin.create({
 				var keyCode = event.keyCode;
 				var validControlCodes = context.get('_KEYBOARD.controlKeys');
 				var numericKeys = context.get('_KEYBOARD.numericKeys');
+				var decimalPlace = context.get('_KEYBOARD.decimalPlace');
+				var keyCombos = context.get('_KEYBOARD.keyCombos');
+				if(numericKeys.concat(validControlCodes).concat(decimalPlace).contains(keyCode) || keyCombos(event)) {
+					return true;
+				} else {
+					context.addMessageQueue('Only numeric characters are allowed.', {expiry: 2000, type: 'warning'});
+					return false;
+				}
+			} 
+		},
+		{
+			id:'integerOnly',
+			event: 'keyDown',
+			emphasis: null,
+			rule: function(context,event) {
+				var keyCode = event.keyCode;
+				var validControlCodes = context.get('_KEYBOARD.controlKeys');
+				var numericKeys = context.get('_KEYBOARD.numericKeys');
 				var keyCombos = context.get('_KEYBOARD.keyCombos');
 				if(numericKeys.concat(validControlCodes).contains(keyCode) || keyCombos(event)) {
 					return true;
@@ -204,6 +222,7 @@ export default Ember.Mixin.create({
 		controlKeys: [8,9,27,36,37,39,38,40,46], // 8:delete, 9:tab, 27: escape, 36:home, 37:left, 39:right, 38:up, 40:down, 46: backspace
 		numericKeys: [48,49,50,51,52,53,54,55,56,57,96,97,98,99,100,101,102,103,104,105,187,189], // 48-57 are standard, 96-105 are numpad numeric keys, - and + symbols are 187/189
 		modifierKeys: [16,17,18], // 16: shift, 17: cntrl, 18: alt
+		decimalPlace: [190],
 		// allows checking of key combinations; by default just checks 
 		// for ctrl-A/cmd-A but options array allows setting what is allowed
 		keyCombos: function(evt, options) {
