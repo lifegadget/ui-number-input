@@ -43,6 +43,9 @@ export default Ember.Component.extend({
 		run.next(this, function() {
 			var elements = this.get('elements');
 			var value = this.get('value');
+			if (!value) {
+				value = [];
+			}
 			var arrayElements = [];
 			for(var i=0; i < elements; i++) {
 				// ensure value always has full array length
