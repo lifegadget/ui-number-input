@@ -14,4 +14,19 @@
 			}}
 		</span>
 	{{/each}}
+	{{#if showSum}}
+		<span class="number-item">
+			{{ui-number-input disabled=true value=sum class="array-summary"  align=arrayElements.0.align size=arrayElements.0.size}}
+		</span>
+	{{/if}}
+	{{#if showMean}}
+		<span class="number-item">
+			{{ui-number-input disabled=true value=mean class="array-summary"  align=arrayElements.0.align size=arrayElements.0.size}}
+		</span>
+	{{/if}}
+	{{#if showMedian}}
+		<span class="number-item">
+			{{ui-number-input disabled=true value=median class="array-summary" align=arrayElements.0.align size=arrayElements.0.size}}
+		</span>
+	{{/if}}
 </div>

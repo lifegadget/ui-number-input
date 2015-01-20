@@ -593,6 +593,39 @@
 			</code>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-number-array-input statsPrecision=2 elements=4 samples=samples3 mean=mean3 median=median3 minValue=minValue3 maxValue=maxValue3 sum=sum3 min=0 max=100 correctionRules='min,max' size="small"}}
+		</div>
+		<div class="col-xs-8">
+			rounded: {{pretty-json samples3}}, mean: {{mean3}}, median: {{median3}}, sum: {{sum3}}, minVal: {{minValue3}}, maxVal: {{maxValue3}} <br/>
+			<code>
+\{{ui-number-array-input elements=4 samples=samples3 mean=mean3 median=median3 minValue=minValue3 maxValue=maxValue3 sum=sum3 min=0 max=100 correctionRules='min,max' size="small"}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-number-array-input elements=2 showSum=true align="center"}}
+		</div>
+		<div class="col-xs-8">
+			Show sum value <br/>
+			<code>
+\{{ui-number-array-input elements=2 showSum=true align="center"}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-number-array-input statsPrecision=1 elements=2 showSum=true showMean=true align="center" size="small"}}
+		</div>
+		<div class="col-xs-8">
+			Show sum and mean values <br/>
+			<code>
+\{{ui-number-array-input statsPrecision=1 elements=2 showSum=true showMean=true align="center" size="small"}}
+			</code>
+		</div>
+	</div>
 </div>
 
 <h4>Edge Cases</h4>

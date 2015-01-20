@@ -27,7 +27,10 @@ export default Ember.Component.extend({
 	sum: null,
 	mean: null,
 	median: null,
-	
+	statsPrecision: null,
+	showMean: false,
+	showMedian: false,
+	showSum: false,
 	// observers and event handlers
 	// ----------------------------
 	// on initialisation ensure element count is defaulted to 
@@ -81,10 +84,10 @@ export default Ember.Component.extend({
 	}.observes('elements','placeholder','align','min','max','size','correctionRules','status','statusVisualize').on('didInsertElement'),
 	_arrayElementDidChange: function() {
 		run.next(this, function() {
-			var elements = this.get('arrayElements')
+			var elements = this.get('arrayElements');
 			this.set('value', elements.map(function(item,index){
 				if (item.value) {
-					return Number(item.value);					
+					return Number(item.value);
 				} else {
 					return null;
 				}
@@ -102,20 +105,30 @@ export default Ember.Component.extend({
 			samples.sort(function(a,b) {return a-b}); // put into order, lowest to highest
 			this.set('samples', samples);
 			this.set('sum', sum);
+			// Stats
 			var sampleSize = samples.length ? samples.length : 0;
 			this.set('sampleSize', sampleSize);
+			var precision = this.get('statsPrecision');
+			var rounding = function(number) {
+				if(precision) {
+					return Math.round(number * Math.pow(10,precision)) / Math.pow(10,precision)
+				} else {
+					return number;
+				}
+			}
 			var median;
 			var midPoint = Math.floor(sampleSize / 2);
 			if (sampleSize % 2 === 0 && sampleSize !== 0) {
 				median = (samples[midPoint] + samples[midPoint - 1]) / 2;
+				
 			} else if (sampleSize !== 0) {
 				median = samples[midPoint];
 			} else {
 				median = null;
 			}
-			this.set('median',median);
+			this.set('median',rounding(median));
 			var mean = samples.length === 0 ? null : sum / samples.length;
-			this.set('mean', mean);
+			this.set('mean', rounding(mean));
 			this.set('minValue', samples ? samples[0] : null);
 			this.set('maxValue', samples ? samples[samples.length -1] : null);
 		});
