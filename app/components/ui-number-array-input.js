@@ -12,7 +12,7 @@ export default Ember.Component.extend({
 	elements: null, // the number of elements in the array
 	placeholder: null,
 	align: 'left',
-	size: null,
+	inputSize: null,
 	min: null,
 	max: null,
 	correctionRules: null,
@@ -33,8 +33,8 @@ export default Ember.Component.extend({
 	showSum: false,
 	// observers and event handlers
 	// ----------------------------
-	// on initialisation ensure element count is defaulted to 
-	// the value's array length (if not already specified)	
+	// on initialisation ensure element count is defaulted to
+	// the value's array length (if not already specified)
 	_elementsInit: function() {
 		var value = this.get('value');
 		var elements = this.get('elements');
@@ -53,19 +53,19 @@ export default Ember.Component.extend({
 			for(var i=0; i < elements; i++) {
 				// ensure value always has full array length
 				if(i >= value.length) {
-					value[i] = null; 
+					value[i] = null;
 				}
 				// assign base name/value pair
 				arrayElements[i] = Ember.Object.create({ id: i, value: value[i] ? Number(value[i]) : null });
 				// add appropriate ornamentation
-				var o = this.getProperties('placeholder','min','max','align', 'size', 'correctionRules','status','statusVisualize');
+				var o = this.getProperties('placeholder','min','max','align', 'inputSize', 'correctionRules','status','statusVisualize');
 				var alwaysArrayProps = ['correctionRules'];
 				for (var property in o) {
 					// if always an "array"
 					if (alwaysArrayProps.contains(property) && o[property]) {
 						o[property] = o[property].split(',');
 					}
-					// split comma-seperated list 
+					// split comma-seperated list
 					if (typeOf(o[property]) === 'string' && o[property].indexOf(',') !== -1) {
 						o[property] = o[property].split(',');
 					}
@@ -81,7 +81,7 @@ export default Ember.Component.extend({
 			}
 			this.set('arrayElements',arrayElements);
 		});
-	}.observes('elements','placeholder','align','min','max','size','correctionRules','status','statusVisualize').on('didInsertElement'),
+	}.observes('elements','placeholder','align','min','max','inputSize','correctionRules','status','statusVisualize').on('didInsertElement'),
 	_arrayElementDidChange: function() {
 		run.next(this, function() {
 			var elements = this.get('arrayElements');
@@ -120,7 +120,7 @@ export default Ember.Component.extend({
 			var midPoint = Math.floor(sampleSize / 2);
 			if (sampleSize % 2 === 0 && sampleSize !== 0) {
 				median = (samples[midPoint] + samples[midPoint - 1]) / 2;
-				
+
 			} else if (sampleSize !== 0) {
 				median = samples[midPoint];
 			} else {
