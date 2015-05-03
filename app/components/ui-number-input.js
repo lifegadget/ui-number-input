@@ -17,9 +17,9 @@ export default Ember.TextField.extend(InputStatusMixin,InputCorrectionMixin,UiEv
 	bsFormControl: function() {
 		return this.get('bs') ? 'form-control' : false;
 	}.property('bs'),
-	size: 'default',
+	inputSize: 'default',
 	sizeClass: function() {
-		var size = this.get('size');
+		var size = this.get('inputSize');
 		if(['lg','large'].contains(size)) {
 			return 'input-lg';
 		} else if(['sm','small'].contains(size)) {
@@ -27,7 +27,7 @@ export default Ember.TextField.extend(InputStatusMixin,InputCorrectionMixin,UiEv
 		} else {
 			return false;
 		}
-	}.property('size'),
+	}.property('inputSize'),
 	min: null,
 	max: null,
 	step: null,
@@ -47,14 +47,14 @@ export default Ember.TextField.extend(InputStatusMixin,InputCorrectionMixin,UiEv
 		return this.processCorrections('keyDown',evt);
 	},
 	// MIXIN CONFIG
-	defaultCorrectionRules: ['numericOnly'], 
+	defaultCorrectionRules: ['numericOnly'],
 	emphasize: function(animationType) {
 		// this.set('animationClass', animationType);
 		var self = this;
 		if (!isEmpty(animationType)) {
 			this.$().addClass('%@ animated'.fmt(animationType)).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
 				self.$().removeClass('%@ animated'.fmt(animationType));
-			});			
+			});
 		}
 	},
 	// VISUAL STYLE
@@ -84,7 +84,7 @@ export default Ember.TextField.extend(InputStatusMixin,InputCorrectionMixin,UiEv
 	// MESSAGE QUEUEING
 	messageQueue: [],
 	/**
-	 * Adds messages to queue. Queue items can be dismissed explictly or can timeout 
+	 * Adds messages to queue. Queue items can be dismissed explictly or can timeout
 	 * if an 'expiry' is placed on the queue.
 	 */
 	addMessageQueue: function(message,options) {
