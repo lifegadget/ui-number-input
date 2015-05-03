@@ -22,22 +22,22 @@
 		<li>Usability Improvements</li>
 		<ul>
 			<li><code>type</code> set to <b>Number</b></li>
-			<li>Adds CSS to remove unwanted visual spinner controls</li>		
-			<li><code>pattern</code> attribute to <b>[0-9]*</b> so that mobile devices start with a numeric keyboard</li>				
+			<li>Adds CSS to remove unwanted visual spinner controls</li>
+			<li><code>pattern</code> attribute to <b>[0-9]*</b> so that mobile devices start with a numeric keyboard</li>
 		</ul>
 		<li>Bootstrap Synergy</li>
 		<ul>
-			<li>Adds Bootstraps <code>form-control</code> class</code></li>
+			<li>Adds Bootstraps <code>form-control</code> class</li>
 			<li>Sizing available with <code>size</code> property. Sizes are default, large, small.</li>
 			<li>Note: Bootstrap itself must be installed to leverage these features</li>
 		</ul>
 		<li>Status and Correction</li>
 		<ul>
 			<li><strong>Status</strong> validation styling -- using both value and functional style configuration -- as well as event emitter</li>
-			<li><strong>Correction Rules</strong> functionality available to auto correct input (NOT COMPLETED YET)</li>		
+			<li><strong>Correction Rules</strong> functionality available to auto correct input (NOT COMPLETED YET)</li>
 		</ul>
 	</ul>
-	
+
 	<h3>Tests</h3>
 	<h4>Basics</h4>
 
@@ -98,8 +98,8 @@
 			</div>
 		</div>
 	</div>
-	
-	
+
+
 	<h4>
 		Bootstrap Rules and Styling:
 	</h4>
@@ -209,8 +209,8 @@
 		<div class="row">
 			<note class="col-xs-12 col-sm-10 col-md-8">
 				<p>
-					Because Bootstrap uses surrounding DOM elements to visually indicate the status of a given field this component instead provides a single attribute <code>status</code> which 
-					can be set to [default,success,warning, error] or a function that returns these values. Note that the status states are consistent with the visual choices available to Bootstrap 
+					Because Bootstrap uses surrounding DOM elements to visually indicate the status of a given field this component instead provides a single attribute <code>status</code> which
+					can be set to [default,success,warning, error] or a function that returns these values. Note that the status states are consistent with the visual choices available to Bootstrap
 					but rather than translating into the <code>has-</code> prefixed CSS classes this component instead uses a <code>status-</code> to avoid unexpected collisions.
 				</p>
 				<p>
@@ -285,8 +285,8 @@
 		<div class="row">
 			<note class="col-xs-12 col-sm-10 col-md-8">
 				<p>
-					Corrections are a set of rules which allow for you to change the value either after focus is lost or in real-time. 
-					This can be useful as a way to more forcefully reinforce the values you want. Because this control is meant <i>only</i> for numeric values the only 
+					Corrections are a set of rules which allow for you to change the value either after focus is lost or in real-time.
+					This can be useful as a way to more forcefully reinforce the values you want. Because this control is meant <i>only</i> for numeric values the only
 					default <strong>correction</strong> is to disallow non-numeric input. This rule is called 'numericOnly' but the other rules that can be applied are:
 				</p>
 				<table class="table table-striped table-condensed">
@@ -421,7 +421,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 {{/if}}
 
 {{#if showNumberArrayComponent}}
@@ -444,9 +444,9 @@
 		<li>mean - the average value in the sampled measurements</li>
 		<li>median - the median value in the sample set (in even sets the two median values will be averaged)</li>
 	</ul>
-		
+
 </ul>
-	
+
 <h3>Tests</h3>
 <h4>Basics</h4>
 
@@ -641,6 +641,6 @@
 \{{ui-number-array-input value=myNonExistantArray elements=3}}
 			</code>
 		</div>
-	</div>	
+	</div>
 </div>
 {{/if}}
