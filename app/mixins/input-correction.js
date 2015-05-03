@@ -63,9 +63,9 @@ export default Ember.Mixin.create({
 				if(isEmpty(correction.id)) {
 					console.warn('External correction rule does not have an ID. Ignoring. %o', correction);
 				} else if(isEmpty(correction.rule) || typeOf(correction.rule) !== 'function') {
-					console.warn('Correction rule "%s" is missing its rule definition!', correction.id);						
+					console.warn('Correction rule "%s" is missing its rule definition!', correction.id);
 				} else if(isEmpty(correction.event)) {
-					console.warn('Correction rule "%s" is missing an event definition.', correction.id);						
+					console.warn('Correction rule "%s" is missing an event definition.', correction.id);
 				} else {
 					// Looks like external rule is correctly formatted
 					self.set('_activeCorrections', _activeCorrections.addObject(correction));
@@ -93,23 +93,27 @@ export default Ember.Mixin.create({
 						var contentBefore = context.get('value');
 						context.$().on('paste',function(e) {
 						    e.preventDefault();
-						    var text = (e.originalEvent || e).clipboardData.getData('text/plain') || prompt('Paste something..');
-							if (Number(text) !== NaN) {
-								context.set('value',Number(text));
+							var text = (e.originalEvent || e).clipboardData.getData('text/plain') || prompt('Paste something..');
+							// Eliminate all non-numeric characters except the first decimal
+							var cleanText = text.match(/\d+(\.\d+)?/g).join('');
+							if (Number(cleanText) !== NaN) {
+								context.set('value',Number(cleanText));
 							} else {
-								console.log('re-instating context: %s', contentBefore);
+								// console.log('re-instating context: %s', contentBefore);
 								context.set('value',contentBefore);
 								context.addMessageQueue('Attempt to paste non-numeric content was blocked.', {expiry: 2000, type: 'info'});
 							}
 							context.$().off('paste');
 						});
 					}
+					// Block any key press that is modified by shiftKey
+					if (event.shiftKey) { return false; }
 					return true;
 				} else {
 					context.addMessageQueue('Only numeric characters are allowed.', {expiry: 2000, type: 'warning'});
 					return false;
 				}
-			} 
+			}
 		},
 		{
 			id:'integerOnly',
@@ -128,14 +132,16 @@ export default Ember.Mixin.create({
 						    e.preventDefault();
 						    var text = (e.originalEvent || e).clipboardData.getData('text/plain') || prompt('Paste something..');
 							if (Number(text) !== NaN ) {
-								if (Number(text) % 1 === 0) {
-									context.set('value',Number(text));									
+								// Eliminate all non-numeric characters except the first decimal
+								var cleanText = text.match(/\d+(\.\d+)?/g).join('');
+								if (Number(cleanText) % 1 === 0) {
+									context.set('value',Number(cleanText));
 								} else {
 									// strip off the non integer component
-									context.set('value',Math.floor(Number(text)));
+									context.set('value',Math.floor(Number(cleanText)));
 									context.addMessageQueue('Value pasted was numeric but not an integer. Only integer component kept.', {expiry: 2000, type: 'info'});
 								}
-								
+
 							} else {
 								context.set('value',contentBefore);
 								context.addMessageQueue('Attempt to paste non-numeric content was blocked.', {expiry: 2000, type: 'info'});
@@ -143,12 +149,14 @@ export default Ember.Mixin.create({
 							context.$().off('paste');
 						});
 					}
+					// Block any key press that is modified by shiftKey
+					if (event.shiftKey) { return false; }
 					return true;
 				} else {
 					context.addMessageQueue('Only numeric characters are allowed.', {expiry: 2000, type: 'warning'});
 					return false;
 				}
-			} 
+			}
 		},
 		{
 			// Redefine min when no lower-than-min value comes in
@@ -165,8 +173,8 @@ export default Ember.Mixin.create({
 				} else {
 					return true;
 				}
-			} 
-		},		
+			}
+		},
 		{
 			id:'min',
 			event: 'focusOut',
@@ -181,7 +189,7 @@ export default Ember.Mixin.create({
 				} else {
 					return true;
 				}
-			} 
+			}
 		},
 		{
 			// Redefine max when no higher-than-max value comes in
@@ -198,7 +206,7 @@ export default Ember.Mixin.create({
 				} else {
 					return true;
 				}
-			} 
+			}
 		},
 		{
 			id:'max',
@@ -214,7 +222,7 @@ export default Ember.Mixin.create({
 				} else {
 					return true;
 				}
-			} 
+			}
 		},
 		{
 			id:'stepUp',
@@ -239,7 +247,7 @@ export default Ember.Mixin.create({
 				} else {
 					return true;
 				}
-			} 
+			}
 		},
 		{
 			id:'stepDown',
@@ -266,7 +274,7 @@ export default Ember.Mixin.create({
 				} else {
 					return true;
 				}
-			} 
+			}
 		},
 	],
 	// REFERENCE VARIABLES
@@ -275,7 +283,7 @@ export default Ember.Mixin.create({
 		numericKeys: [48,49,50,51,52,53,54,55,56,57,96,97,98,99,100,101,102,103,104,105,187,189], // 48-57 are standard, 96-105 are numpad numeric keys, - and + symbols are 187/189
 		modifierKeys: [16,17,18], // 16: shift, 17: cntrl, 18: alt
 		decimalPlace: [190],
-		// allows checking of key combinations; by default just checks 
+		// allows checking of key combinations; by default just checks
 		// for ctrl-A/cmd-A but options array allows setting what is allowed
 		keyCombos: function(evt, options) {
 			options = options || {};
@@ -293,8 +301,8 @@ export default Ember.Mixin.create({
 					}
 				}
 			});
-			
+
 			return isAcceptable;
-		} 
+		}
 	}
 });
