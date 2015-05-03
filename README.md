@@ -17,16 +17,16 @@ An Ember-CLI addon that provides a highly functional extension of Ember's TextIn
 	- Basic formatting can be turned on to visually indicate these styles, or you can style them yourself with all your CSS prowess
 1. Auto Correction Rules
 	- Default rule enforces that only numbers can be input into field
-	- Container can opt to add in auto-corrections for *min* and *max* value, as well as enforcing the `step` interval 
+	- Container can opt to add in auto-corrections for *min* and *max* value, as well as enforcing the `step` interval
 
 ## Installation
 
 * change directories to your project folder
-* `ember install:addon ui-number-input`
+* `ember install ui-number-input`
 
 That's it, you're ready to use it.
 
-> Note: before version 0.1.5 of Ember CLI the recommended installation command was: `npm install ui-number-input --save-dev` which should still work for now 
+> Note: before version 0.1.5 of Ember CLI the recommended installation command was: `npm install ui-number-input --save-dev`, and before version 0.2.3 `ember install:addon ui-number-input`
 > (although in future builds we may utilise some of the initialisation features that the new syntax opens up)
 
 ## Usage ##
@@ -43,7 +43,7 @@ There are no external Bower dependencies, however, in order to provide reuse to 
 
 - `InputStatusMixin`
 	manages all the functionality around *status* rules and styling. This mixin has the following dependencies:
-	
+
 	- `classNameBindings` - expects to have 'statusClass' and 'statusVisualze' listed in the bindings array
 	- `status`, `statusIsDefault`, `statusVisualize` become reserved names
 - `InputCorrectionMixin`
